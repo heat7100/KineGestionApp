@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87087B5E-6025-401C-A8F2-4FF35929CC8A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>KineGestionApp</RootNamespace>
+    <AssemblyName>KineGestionApp</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.2.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=4.1.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.4.1.0\lib\net48\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Generale.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Generale.designer.cs">
+      <DependentUpon>Boite_Modale_Generale.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Medecins.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Medecins.designer.cs">
+      <DependentUpon>Boite_Modale_Medecins.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Mutuelles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Mutuelles.designer.cs">
+      <DependentUpon>Boite_Modale_Mutuelles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Patients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Patients.designer.cs">
+      <DependentUpon>Boite_Modale_Patients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Prescriptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Boîtes_Modales\Boite_Modale_Prescriptions.Designer.cs">
+      <DependentUpon>Boite_Modale_Prescriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mutuelles\Gestion.Mutuelles.cs" />
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Medecins.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Medecins.designer.cs">
+      <DependentUpon>Form_Ajouter_Medecins.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Mutuelles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Mutuelles.designer.cs">
+      <DependentUpon>Form_Ajouter_Mutuelles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Patients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Patients.designer.cs">
+      <DependentUpon>Form_Ajouter_Patients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Prescriptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Ajouter\Form_Ajouter_Prescriptions.Designer.cs">
+      <DependentUpon>Form_Ajouter_Prescriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Medecins.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Medecins.designer.cs">
+      <DependentUpon>Form_Modifier_Medecins.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Mutuelles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Mutuelles.designer.cs">
+      <DependentUpon>Form_Modifier_Mutuelles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Patients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Patients.designer.cs">
+      <DependentUpon>Form_Modifier_Patients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Prescriptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulaires_Modifier\Form_Modifier_Prescriptions.Designer.cs">
+      <DependentUpon>Form_Modifier_Prescriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Localites\Gestion.Localites.cs" />
+    <Compile Include="Localites\Modeles.Localites.cs" />
+    <Compile Include="Medecins\Gestion.Medecins.cs" />
+    <Compile Include="Medecins\Modeles.Medecins.cs" />
+    <Compile Include="Mutuelles\Modeles.Mutuelles.cs" />
+    <Compile Include="Nomenclatures\Gestion.Nomenclatures.cs" />
+    <Compile Include="Nomenclatures\Modeles.Nomenclatures.cs" />
+    <Compile Include="Patients\Gestion.Patients.cs" />
+    <Compile Include="Patients\Modeles.Patients.cs" />
+    <Compile Include="Prescriptions\Gestion.Prescriptions.cs" />
+    <Compile Include="Prescriptions\Modeles.Prescriptions.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seances\Gestion.Seances.cs" />
+    <Compile Include="Seances\Modeles.Seances.cs" />
+    <EmbeddedResource Include="Boîtes_Modales\Boite_Modale_Generale.resx">
+      <DependentUpon>Boite_Modale_Generale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Boîtes_Modales\Boite_Modale_Medecins.resx">
+      <DependentUpon>Boite_Modale_Medecins.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Boîtes_Modales\Boite_Modale_Mutuelles.resx">
+      <DependentUpon>Boite_Modale_Mutuelles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Boîtes_Modales\Boite_Modale_Patients.resx">
+      <DependentUpon>Boite_Modale_Patients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Boîtes_Modales\Boite_Modale_Prescriptions.resx">
+      <DependentUpon>Boite_Modale_Prescriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Ajouter\Form_Ajouter_Medecins.resx">
+      <DependentUpon>Form_Ajouter_Medecins.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Ajouter\Form_Ajouter_Mutuelles.resx">
+      <DependentUpon>Form_Ajouter_Mutuelles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Ajouter\Form_Ajouter_Patients.resx">
+      <DependentUpon>Form_Ajouter_Patients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Ajouter\Form_Ajouter_Prescriptions.resx">
+      <DependentUpon>Form_Ajouter_Prescriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Modifier\Form_Modifier_Medecins.resx">
+      <DependentUpon>Form_Modifier_Medecins.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Modifier\Form_Modifier_Mutuelles.resx">
+      <DependentUpon>Form_Modifier_Mutuelles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Modifier\Form_Modifier_Patients.resx">
+      <DependentUpon>Form_Modifier_Patients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulaires_Modifier\Form_Modifier_Prescriptions.resx">
+      <DependentUpon>Form_Modifier_Prescriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\PDSGBD\PDSGBD\PDSGBD.csproj">
+      <Project>{f89c2793-ffb8-4f85-9a98-6a3b2649d1a2}</Project>
+      <Name>PDSGBD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\PDSGBD\PDSGBD_MySql\PDSGBD_MySql.csproj">
+      <Project>{3d05f8be-0831-4c7c-b10a-32ff601608f4}</Project>
+      <Name>PDSGBD_MySql</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
