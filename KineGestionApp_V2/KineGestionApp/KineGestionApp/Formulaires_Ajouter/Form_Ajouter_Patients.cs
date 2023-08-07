@@ -79,6 +79,7 @@ namespace KineGestionApp
                     {
                         using (var image = Image.FromFile(uploadedFileName))
                         {
+                            Extensions.ResizeImageAccordingToPictureBox(image, pictureBoxAjouterPatients);
                             pictureBoxAjouterPatients.Load(openFileDialog1.FileName);
                             if (!Patient.ModifierPhotoPatient(pictureBoxAjouterPatients.Image))
                             {
@@ -123,7 +124,7 @@ namespace KineGestionApp
             if (Patient.EstValide())
             {
                 //Extensions.ErrorProviderFields(this, "Aucun champ ne peut être vide et  0 <> 20! ", errorProviderAjouterPatients, 20);
-                string message = "Confirmez vous l'enregistrement du patient : /n" + textNomAjouterPatients.Text + " " + textPrenomAjouterPatients.Text + " ?/n" +
+                string message = "Confirmez vous l'enregistrement du patient : \n" + textNomAjouterPatients.Text + " " + textPrenomAjouterPatients.Text + " ?\n" +
                       "Vérifiez bien les champs saisis du formulaire";
                 string caption = "Confirmation enregistrement nouveau patient";
                 var result = MessageBox.Show(message, caption,
@@ -245,9 +246,9 @@ namespace KineGestionApp
             }
             else
             {
-                if (!Program.UniquenessInDatabase(textEmailAjouterPatients.Text, "patients", "Email") ||
-                  (!Program.UniquenessInDatabase(textEmailAjouterPatients.Text, "medecins", "Email") ||
-                  (!Program.UniquenessInDatabase(textEmailAjouterPatients.Text, "mutualites", "Email"))))
+                if (Program.UniquenessInDatabase(textEmailAjouterPatients.Text, "patients", "Email") ||
+                  (Program.UniquenessInDatabase(textEmailAjouterPatients.Text, "medecins", "Email") ||
+                  (Program.UniquenessInDatabase(textEmailAjouterPatients.Text, "mutualites", "Email"))))
                 {
                     errorProviderAjouterPatients.SetError(textEmailAjouterPatients, "Cette adresse email est déjà référencée\n" +
                                                                                     "Vous devez en saisir une autre");
@@ -273,9 +274,9 @@ namespace KineGestionApp
             }
             else
             {
-                if ((!Program.UniquenessInDatabase(textTelephoneAjouterPatients.Text, "patients", "Telephone") ||
-                    (!Program.UniquenessInDatabase(textTelephoneAjouterPatients.Text, "medecins", "Telephone") ||
-                    (!Program.UniquenessInDatabase(textTelephoneAjouterPatients.Text, "mutualites", "Telephone")))))
+                if ((Program.UniquenessInDatabase(textTelephoneAjouterPatients.Text, "patients", "Telephone") ||
+                    (Program.UniquenessInDatabase(textTelephoneAjouterPatients.Text, "medecins", "Telephone") ||
+                    (Program.UniquenessInDatabase(textTelephoneAjouterPatients.Text, "mutualites", "Telephone")))))
                 {
                     errorProviderAjouterPatients.SetError(textTelephoneAjouterPatients, "Ce numéro de téléphone est déjà référencé\n" +
                                                                                         "Vous devez en saisir un autre");
@@ -347,7 +348,7 @@ namespace KineGestionApp
             }
             else
             {
-                if (!Program.UniquenessInDatabase(textNumeroAffilationMutuelleAjouterPatients.Text, "patients", "NumeroAffiliation"))
+                if (Program.UniquenessInDatabase(textNumeroAffilationMutuelleAjouterPatients.Text, "patients", "NumeroAffiliation"))
                 {
 
                     errorProviderAjouterPatients.SetError(textNumeroAffilationMutuelleAjouterPatients, "Ce numéro d'affiliation existe déjà\n" +
@@ -374,6 +375,7 @@ namespace KineGestionApp
         private void listBoxMutuellesAjouterPatients_SelectedIndexChanged(object sender, EventArgs e)
         {
             Mutuelle = Program.Mutuelle.ChargerMutuelles(listBoxMutuellesAjouterPatients.SelectedIndex);
+            Extensions.ResizeImageAccordingToPictureBox(Mutuelle.LogoMutuelle, pictureBoxLogoMutuelleAjouterPatients);
             pictureBoxAjouterPatients.Image = Mutuelle.LogoMutuelle;
             //Patient.ModifierMutuellePatient(listBoxMutuellesAjouterPatients.SelectedIndex + 1);
             Patient.ModifierMutuellePatient((listBoxMutuellesAjouterPatients.SelectedItem as FormattedObject<ModelesMutuelles.IMutuelle>).Object.Id);

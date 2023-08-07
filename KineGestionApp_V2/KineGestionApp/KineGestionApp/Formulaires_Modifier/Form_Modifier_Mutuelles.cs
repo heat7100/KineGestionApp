@@ -99,7 +99,7 @@ namespace KineGestionApp
             int currentIDMutuelle = (int.Parse(textBoxCurrentIdMutuelle.Text));
             if (Mutuelle.EstValide() && (Program.ExistenceTestID(currentIDMutuelle, "mutualites", "ID_Mutualite")))
             {
-                string message = "Confirmez vous la modification de la mutuelle : /n" + textBoxMutuelleModifierMutuelles.Text + " ?/n" +
+                string message = "Confirmez vous la modification de la mutuelle : \n" + textBoxMutuelleModifierMutuelles.Text + " ?\n" +
                                  "Voici les modifications : \n"
                                  + MessageBoxConfirmationModif();
                 const string caption = "Confirmation modification mutuelle";
@@ -221,17 +221,25 @@ namespace KineGestionApp
 
 
                 int posLocalite = Program.positionItemFromEnumerable(listLocalite, testId);
-                textBoxCurrentIdMutuelle.Text = Mutuelle.Id.ToString();
-                textBoxMutuelleModifierMutuelles.Text = Mutuelle.NomMutuelle;
-                textBoxAdresseModifierMutuelles.Text = Mutuelle.AdresseMutuelle;
-                textBoxEmailModifierMutuelles.Text = Mutuelle.EmailMutuelle;
-                textBoxTelephoneModifierMutuelles.Text = Mutuelle.TelephoneMutuelle;
-                comboBoxLocaliteModifierMutuelles.SelectedIndex = posLocalite;
-                comboBoxCodePostalModifierMutuelles.SelectedIndex = posLocalite;
-                pictureBoxModifierMutuelles.Image = Mutuelle.LogoMutuelle;
+                if(posLocalite > -1 ) 
+                {
+                    textBoxCurrentIdMutuelle.Text = Mutuelle.Id.ToString();
+                    textBoxMutuelleModifierMutuelles.Text = Mutuelle.NomMutuelle;
+                    textBoxAdresseModifierMutuelles.Text = Mutuelle.AdresseMutuelle;
+                    textBoxEmailModifierMutuelles.Text = Mutuelle.EmailMutuelle;
+                    textBoxTelephoneModifierMutuelles.Text = Mutuelle.TelephoneMutuelle;
+                    comboBoxLocaliteModifierMutuelles.SelectedIndex = posLocalite;
+                    comboBoxCodePostalModifierMutuelles.SelectedIndex = posLocalite;
+                    pictureBoxModifierMutuelles.Image = Mutuelle.LogoMutuelle;
 
-                MutuelleConfirmation = ModelesMutuelles.CreerMutuelle(Mutuelle.Id, Mutuelle.NomMutuelle, Mutuelle.AdresseMutuelle, Mutuelle.EmailMutuelle, Mutuelle.TelephoneMutuelle, Mutuelle.Mutuelle_ID_Localite, Mutuelle.LogoMutuelle);
-                return true;
+                    MutuelleConfirmation = ModelesMutuelles.CreerMutuelle(Mutuelle.Id, Mutuelle.NomMutuelle, Mutuelle.AdresseMutuelle, Mutuelle.EmailMutuelle, Mutuelle.TelephoneMutuelle, Mutuelle.Mutuelle_ID_Localite, Mutuelle.LogoMutuelle);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             else
             {

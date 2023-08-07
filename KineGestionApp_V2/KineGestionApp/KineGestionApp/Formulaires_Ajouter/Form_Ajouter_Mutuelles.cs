@@ -102,7 +102,7 @@ namespace KineGestionApp
             if (Mutuelle.EstValide())
             {
                 //Extensions.ErrorProviderFields(this, "Aucun champ ne peut être vide et  doit comporter 0 <> 20 caractères ! ", errorProviderAjouterMutuelles, 20);
-                string message = "Confirmez vous l'enregistrement du médecin : /n" + textBoxMutuelleAjouterMutuelles.Text + " ?/n" +
+                string message = "Confirmez vous l'enregistrement du médecin : \n" + textBoxMutuelleAjouterMutuelles.Text + " ?\n" +
                       "Vérifiez bien les champs saisis du formulaire";
                 const string caption = "Confirmation enregistrement nouvelle mutuelle";
                 var result = MessageBox.Show(message, caption,

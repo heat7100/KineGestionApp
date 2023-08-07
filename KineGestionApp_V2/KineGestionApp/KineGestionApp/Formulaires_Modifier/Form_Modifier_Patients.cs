@@ -114,7 +114,7 @@ namespace KineGestionApp
             int currentIDPartient = (int.Parse(textBoxCurrentIdPatient.Text));
             if (Patient.EstValide() && (Program.ExistenceTestID(currentIDPartient, "patients", "ID_Patients")))
             {
-                string message = "Confirmez vous la modification du patient : /n" + textNomModifierPatients.Text + " " + textPrenomModifierPatients.Text + " ?/n" +
+                string message = "Confirmez vous la modification du patient : \n" + textNomModifierPatients.Text + " " + textPrenomModifierPatients.Text + " ?\n" +
                                  "Voici les modifications : \n" +
                                  MessageBoxConfirmationModif();
                 const string caption = "Confirmation modification patient";
@@ -132,13 +132,18 @@ namespace KineGestionApp
                                         "Samuel Raes : +32473/934591", "Error Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Extensions.OpenAndCloseForm<Boite_Modale_Patients>(sender, this);
                     }
-                }//On supprimer tout ce qui a été sélectionné dans le formulaire
+                    else
+                    {
+                        MessageBox.Show("Succès de la modification",
+                                        "L'enregistrement a bien été traité", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ShowData(pos);
+                    }
+                }
                 else
                 {
-                    MessageBox.Show("Succès de la modification",
-                                    "L'enregistrement a bien été traité", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ShowData(pos);
+                    Extensions.ClearFormControls(this);
                 }
+
             }
             else
             {
@@ -216,8 +221,8 @@ namespace KineGestionApp
                                                                     patients.Dossier, 
                                                                     patients.Commentaire,
                                                                     patients.NumeroAffiliation,
-                                                                    mutualites.Mutualite
-                                                                    patients.Photo,
+                                                                    mutualites.ID_Mutualite,
+                                                                    patients.Photo
                                                                 FROM 
 
                                                                                 patients
@@ -233,7 +238,9 @@ namespace KineGestionApp
             if(TablePatients.Values.Count() > 0)
             {
                 int testId = (int)TablePatients.GetValue(6);
-                int idMut = (int)TablePatients.GetValue(16);
+                int idMut = (int)TablePatients.GetValue(13);
+                string filePath = TablePatients.GetValue(14).ToString();
+                Image Img = Extensions.GetImageDirectoryPC(filePath);
                 Patient = ModelesPatients.CreerPatient(
                     (int)TablePatients.GetValue(0),
                     TablePatients.GetValue(1).ToString(),
@@ -248,8 +255,8 @@ namespace KineGestionApp
                     TablePatients.GetValue(11).ToString(),
                     TablePatients.GetValue(12).ToString(),
                     TablePatients.GetValue(14).ToString(),
-                    (int)TablePatients.GetValue(15)
-                    //(Image)TablePatients.GetValue(16)
+                    (int)TablePatients.GetValue(15),
+                    Img
                     );
 
                 int posLocalite = Program.positionItemFromEnumerable(listLocalites, testId);

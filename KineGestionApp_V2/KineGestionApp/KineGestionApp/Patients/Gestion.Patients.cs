@@ -130,6 +130,7 @@ namespace KineGestionApp
                         patients.Nom ASC, 
                         patients.Prenom ASC"))
                 {
+                    Image ImgDB = Extensions.GetImageDirectoryPC(enregistrement.GetValue<string>("photo"));
                     var patient = ModelesPatients.CreerPatient
                         (enregistrement.GetValue<int>("id"),
                          enregistrement.GetValue<string>("nom"),
@@ -145,7 +146,7 @@ namespace KineGestionApp
                          enregistrement.GetValue<string>("commentaire"),
                          enregistrement.GetValue<string>("numeroAffiliation"),
                          enregistrement.GetValue<int>("id_Mutualite"),
-                         Extensions.ImageConversionByteToImage(enregistrement.GetValue<byte[]>("photo"))
+                         ImgDB
                         );
                     if (patient == null) continue;
                     if(patientActuel == null)
@@ -221,13 +222,16 @@ namespace KineGestionApp
             {
                 if (patient == null) return false;
                 byte[] photo;
+                string imgPath;
                 if (patient.PhotoPatient != null)
                 {
                     photo = Extensions.ImageConversionImageToByte(patient.PhotoPatient);
+                    imgPath = Extensions.SaveImageDirectoryPC(patient.PhotoPatient, "patients", patient.Id);
                 }
                 else
                 {
                     photo = null;
+                    imgPath = Extensions.SaveImageDirectoryPC(patient.PhotoPatient, "patients", patient.Id); //Image par défaut
                 }
                 if (patient.Id > 0)
                 {
@@ -235,7 +239,7 @@ namespace KineGestionApp
                                         patients.Adresse = {4}, patients.Patient_ID_Localite = {5}, patients.Email = {6}, patients.Telephone = {7}, 
                                         Patients.Vipo = {8}, patients.Commentaire = {9}, patients.Patients_ID_Mutualite = {10}, patients.Photo = {11}, WHERE patients.ID_Patients = {12}",
                                         patient.NomPatient, patient.PrenomPatient, patient.CivilitePatient, patient.DateNaissancePatient, patient.AdressePatient, patient.Patient_ID_Localite, patient.EmailPatient,
-                                        patient.TelephonePatient, patient.VipoPatient, patient.CommentairePatient, patient.Patients_ID_Mutualite, photo, patient.Id).RowCount == 1) return true;
+                                        patient.TelephonePatient, patient.VipoPatient, patient.CommentairePatient, patient.Patients_ID_Mutualite, imgPath, patient.Id).RowCount == 1) return true;
                 }
                 return false;
             }
@@ -285,25 +289,37 @@ namespace KineGestionApp
             public bool Ajouter(ModelesPatients.IPatient patient)
             {
                 byte[] photo;
-                if (patient.PhotoPatient != null)
-                {
-                    photo = Extensions.ImageConversionImageToByte(patient.PhotoPatient);
-                }
-                else
-                {
-                    photo = null;
-                }
+                string ImageNameDB;
+
+                //L'exportation en tableau de butes de fonctionne pas avec le format BLOB en MySQL
+                //if (patient.PhotoPatient != null)
+                //{
+                //    photo = Extensions.ImageConversionImageToByte(patient.PhotoPatient);
+                //}
+
+                Guid idTemp = Guid.NewGuid();
                 if (Program.Bd.Execute(@"INSERT INTO patients ( Nom, Prenom, Civilite, Date_de_naissance, Adresse, Patient_ID_Localite, Email, Telephone, Dossier, Vipo, Commentaire, NumeroAffiliation, Photo, Patients_ID_Mutualite)  
-                                  VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13})",
-                              patient.NomPatient, patient.PrenomPatient, patient.CivilitePatient, patient.DateNaissancePatient, patient.AdressePatient, patient.Patient_ID_Localite, patient.EmailPatient,
-                              patient.TelephonePatient, patient.DossierPatient, patient.VipoPatient, patient.CommentairePatient, patient.NumeroAffiliationMutuellePatient, photo, patient.Patients_ID_Mutualite).RowCount == 1)
+                                         VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13})",
+                                        patient.NomPatient, patient.PrenomPatient, patient.CivilitePatient, patient.DateNaissancePatient, patient.AdressePatient, patient.Patient_ID_Localite, patient.EmailPatient,
+                                         patient.TelephonePatient, patient.DossierPatient, patient.VipoPatient, patient.CommentairePatient, patient.NumeroAffiliationMutuellePatient, idTemp.ToString(), patient.Patients_ID_Mutualite).RowCount == 1)
                 {
-                    return true;
+                    int lastID = Program.Bd.GetValue<int>("SELECT patients.ID_Patients FROM patients WHERE patients.Photo ={0}", idTemp.ToString());
+                    ImageNameDB = Extensions.SaveImageDirectoryPC(patient.PhotoPatient, "patients", (int)lastID);
+                    if (Program.Bd.Execute("UPDATE patients SET patients.Photo = {0} WHERE patients.ID_Patients = {1}", ImageNameDB, lastID).RowCount == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("l'Image n'a pas pu être prise en compte");
+                        return true;
+                    }
                 }
                 else
                 {
                     return false;
                 }
+
             }
 
 

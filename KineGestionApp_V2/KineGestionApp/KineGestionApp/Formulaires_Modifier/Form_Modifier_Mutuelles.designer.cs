@@ -452,7 +452,7 @@
             this.ClientSize = new System.Drawing.Size(949, 317);
             this.Controls.Add(this.textBoxCurrentIdMutuelle);
             this.Controls.Add(this.tableLayoutPanel6);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_Modifier_Mutuelles";

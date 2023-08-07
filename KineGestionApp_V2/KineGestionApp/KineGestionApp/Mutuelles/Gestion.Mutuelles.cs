@@ -150,8 +150,8 @@ namespace KineGestionApp
                 var enregistrement = Program.Bd.GetRow(@"SELECT mutualites.ID_Mutualite AS id, mutualites.Mutualite AS mutuelle, 
                                                                     mutualites.Adresse AS adresse, mutualites.Mutualite_ID_Localite AS mutualite_ID_Localite, 
                                                                     mutualites.Email AS email, mutualites.Telephone AS telephone, mutualites.Logo AS logo FROM mutualites WHERE mutualites.ID_Mutualite = {0}", id + 1);
-
-                    mutuelle = ModelesMutuelles.CreerMutuelle(enregistrement.GetValue<int>("id"), enregistrement.GetValue<string>("mutuelle"), enregistrement.GetValue<string>("adresse"), enregistrement.GetValue<string>("email"), enregistrement.GetValue<string>("telephone"), enregistrement.GetValue<int>("mutualite_ID_Localite"), Extensions.ImageConversionByteToImage(enregistrement.GetValue<byte[]>("logo")));
+                Image ImgDB = Extensions.GetImageDirectoryPC(enregistrement.GetValue<string>("logo"));
+                mutuelle = ModelesMutuelles.CreerMutuelle(enregistrement.GetValue<int>("id"), enregistrement.GetValue<string>("mutuelle"), enregistrement.GetValue<string>("adresse"), enregistrement.GetValue<string>("email"), enregistrement.GetValue<string>("telephone"), enregistrement.GetValue<int>("mutualite_ID_Localite"), ImgDB);
                     return mutuelle;
             }
 
@@ -209,7 +209,7 @@ namespace KineGestionApp
                 else
                 {
                     logo = null;
-                    imgPath = Extensions.SaveImageDirectoryPC(mutuelle.LogoMutuelle, "mutuelles", mutuelle.Id);
+                    imgPath = Extensions.SaveImageDirectoryPC(mutuelle.LogoMutuelle, "mutuelles", mutuelle.Id); //Image par défaut
                 }
                 if (mutuelle.Id > 0)
                 {

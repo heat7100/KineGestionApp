@@ -718,7 +718,7 @@
             this.ClientSize = new System.Drawing.Size(1029, 939);
             this.Controls.Add(this.dataGridViewListeSeancesAjouterPrescriptions);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_Ajouter_Prescriptions";

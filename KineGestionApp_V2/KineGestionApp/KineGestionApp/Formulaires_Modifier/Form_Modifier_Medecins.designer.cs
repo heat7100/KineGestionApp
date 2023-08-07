@@ -392,6 +392,7 @@
             this.ClientSize = new System.Drawing.Size(889, 307);
             this.Controls.Add(this.textBoxCurrentIDMedecin);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_Modifier_Medecins";

@@ -358,6 +358,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 344);
             this.Controls.Add(this.tableLayoutPanel4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MinimizeBox = false;
             this.Name = "Form_Ajouter_Medecins";
             this.Text = "Form_Ajouter_Medecins";

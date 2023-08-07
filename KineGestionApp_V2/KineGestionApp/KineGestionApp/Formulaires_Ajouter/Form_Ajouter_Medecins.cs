@@ -43,7 +43,7 @@ namespace KineGestionApp
             if (Medecin.EstValide())
             {
                 //Extensions.ErrorProviderFields(this, " Aucun champ ne peut être vide et doit comporter 0 <> 20 caractètres ! ", errorProviderAjouterMedecins, 20);
-                string message = "Confirmez vous l'enregistrement du médecin : /n" + textBoxNomAjouterMedecins.Text + " " + textBoxPrenomAjouterMedecins.Text + " ?/n" +
+                string message = "Confirmez vous l'enregistrement du médecin : \n" + textBoxNomAjouterMedecins.Text + " " + textBoxPrenomAjouterMedecins.Text + " ?\n" +
                                  "Vérifiez bien les champs saisis du formulaire";
                 const string caption = "Confirmation enregistrement nouveau patient";
                 var result = MessageBox.Show(message, caption,
