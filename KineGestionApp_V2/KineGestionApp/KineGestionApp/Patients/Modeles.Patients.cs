@@ -502,7 +502,8 @@ namespace KineGestionApp
             /// <returns>Vrai si ce changement a été accepté, sinon faux</returns>
             public bool ModifierNomPatient(string nom)
             {
-                nom = nom.Trim().Replace(" ", "");
+                nom = PDSGBD.Extensions.RemoveSpacesAndPreserveCasing(nom);
+                //nom = nom.Trim().Replace(" ", "");
                 if (!NomPatientValidation(nom)) return false;
                 NomPatient = nom;
                 return true;
@@ -521,18 +522,6 @@ namespace KineGestionApp
                 {
                     return false;
                 }
-                //using (var cancelToken = CancellationToken.GetNew())
-                //{
-                //    if (SurChangementNomPatient != null)
-                //    {
-                //        SurChangementNomPatient(this, NomPatient, nom, cancelToken);
-                //    }
-                //    if (SurChangementNom != null)
-                //    {
-                //        SurChangementNom(NomPatient, nom, cancelToken);
-                //    }
-                //    if (cancelToken.IsCancelled) return false;
-                //}
                 return true;
             }
 
@@ -548,8 +537,10 @@ namespace KineGestionApp
             /// <returns>Vrai si ce changement a été accepté, sinon faux</returns>
             public bool ModifierPrenomPatient(string prenom)
             {
-                PrenomPatient = prenom.Trim().Replace(" ", ""); 
-                if(!PrenomPatientValidation(PrenomPatient)) return false;
+                prenom = PDSGBD.Extensions.RemoveSpacesAndPreserveCasing(prenom);
+                //prenom = prenom.Trim().Replace(" ", ""); 
+                if (!PrenomPatientValidation(prenom)) return false;
+                PrenomPatient = prenom;
                 return true;
             }
 
@@ -565,18 +556,6 @@ namespace KineGestionApp
                 if (string.IsNullOrEmpty(prenom) || (prenom.Any(char.IsDigit) || (PDSGBD.Extensions.InvalideChars(prenom) || (prenom.Length > 25)))) {
                     return false;
                 }
-                //using (var cancelToken = CancellationToken.GetNew())
-                //{
-                //    if (SurChangementPrenomPatient != null)
-                //    {
-                //        SurChangementPrenomPatient(this, NomPatient, prenom, cancelToken);
-                //    }
-                //    if (SurChangementPrenomPatient != null)
-                //    {
-                //        SurChangementPrenom(PrenomPatient, prenom, cancelToken);
-                //    }
-                //    if (cancelToken.IsCancelled) return false;
-                //}
                 return true;
             }
 

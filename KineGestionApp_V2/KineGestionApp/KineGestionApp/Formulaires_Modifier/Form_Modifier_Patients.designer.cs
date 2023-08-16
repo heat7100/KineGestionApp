@@ -439,6 +439,7 @@
             this.textNomModifierPatients.Size = new System.Drawing.Size(265, 22);
             this.textNomModifierPatients.TabIndex = 0;
             this.textNomModifierPatients.TabStop = false;
+            this.textNomModifierPatients.TextChanged += new System.EventHandler(this.textNomModifierPatients_TextChanged);
             // 
             // textPrenomModifierPatients
             // 
@@ -448,6 +449,7 @@
             this.textPrenomModifierPatients.Size = new System.Drawing.Size(265, 22);
             this.textPrenomModifierPatients.TabIndex = 1;
             this.textPrenomModifierPatients.TabStop = false;
+            this.textPrenomModifierPatients.TextChanged += new System.EventHandler(this.textPrenomModifierPatients_TextChanged);
             // 
             // textCiviliteModifierPatients
             // 
@@ -493,7 +495,6 @@
             this.textDossierModifierPatients.Name = "textDossierModifierPatients";
             this.textDossierModifierPatients.Size = new System.Drawing.Size(265, 22);
             this.textDossierModifierPatients.TabIndex = 9;
-            this.textDossierModifierPatients.Validating += new System.ComponentModel.CancelEventHandler(this.textDossierModifierPatients_Validating);
             // 
             // checkBoxVipoModifierPatients
             // 
@@ -720,6 +721,7 @@
             // errorProviderModifierPatients
             // 
             this.errorProviderModifierPatients.ContainerControl = this;
+            this.errorProviderModifierPatients.RightToLeft = true;
             // 
             // Form_Modifier_Patients
             // 

@@ -71,8 +71,6 @@ namespace KineGestionApp
 
                 if (mimeType.StartsWith("image/"))
                 {
-                    if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                    {
                         //Ouvre l'Explorateur de fichiers Windows pour insérer la photo du patient
                         try
                         {
@@ -100,7 +98,6 @@ namespace KineGestionApp
                     {
                         errorProviderModifierPatients.SetError(boutonModifierPhotoPatientModifierPatients, "Il ne s'agit pas d'une image valide");
                     }
-                }
             }
         }
 
@@ -298,6 +295,8 @@ namespace KineGestionApp
                     textBoxCommentaireModifierPatients.Text = Patient.CommentairePatient;
                     textBoxNumeroAffiliationMutuelleModifierPatients.Text = Patient.NumeroAffiliationMutuellePatient;
 
+                    PatientConfirmation = ModelesPatients.CreerPatient(id, nom, prenom, civilitePatient, dateNaissancePatient, adressePatient, Patient_ID_Localite, vipoPatient, emailPatient, telephonePatient,
+                                                                       dossierPatient, commentairePatient, numeroAffiliationMutuellePatient, patients_ID_Mutualite, photoPatient);
                     return true;
                 }
                 else
@@ -541,6 +540,38 @@ namespace KineGestionApp
             pictureBoxLogoMutuelleModifierPatients.SizeMode = PictureBoxSizeMode.Zoom;
             //Patient.ModifierMutuellePatient(listBoxMutuellesAjouterPatients.SelectedIndex + 1);
             Patient.ModifierMutuellePatient((listBoxMutuellesModifierPatients.SelectedItem as FormattedObject<ModelesMutuelles.IMutuelle>).Object.Id);
+        }
+
+        private void textNomModifierPatients_TextChanged(object sender, EventArgs e)
+        {
+            if (textNomModifierPatients.Text == "")
+            {
+                errorProviderModifierPatients.SetError(textNomModifierPatients, null);
+            }
+            else if (!Patient.ModifierNomPatient(textNomModifierPatients.Text))
+            {
+                errorProviderModifierPatients.SetError(textNomModifierPatients, "Ce nom n'est pas valide\nLes caractères spéciaux ne sont pas acceptés");
+            }
+            else
+            {
+                errorProviderModifierPatients.SetError(textNomModifierPatients, null);
+            }
+        }
+
+        private void textPrenomModifierPatients_TextChanged(object sender, EventArgs e)
+        {
+            if (textPrenomModifierPatients.Text == "")
+            {
+                errorProviderModifierPatients.SetError(textPrenomModifierPatients, null);
+            }
+            else if (!Patient.ModifierPrenomPatient(textPrenomModifierPatients.Text))
+            {
+                errorProviderModifierPatients.SetError(textPrenomModifierPatients, "Ce prénom n'est pas valide\nLes caractères spéciaux ne sont pas acceptés");
+            }
+            else
+            {
+                errorProviderModifierPatients.SetError(textPrenomModifierPatients, null);
+            }
         }
     }
 }

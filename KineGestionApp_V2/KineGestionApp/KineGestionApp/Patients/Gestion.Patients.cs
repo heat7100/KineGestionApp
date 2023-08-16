@@ -178,10 +178,57 @@ namespace KineGestionApp
             /// </summary>
             /// <param name="id">Identifiant du patient</param>
             /// <returns>Patient chargé si possible, sinon null</returns>
-            public ModelesPatients.IPatient ChargerPatients(int id)
+            public ModelesPatients.IPatient ChargerPatientsEnCache(int id)
             {
                 return enDB.TryGetValue(id, out var patient) ? patient : null;
             }
+
+            public ModelesPatients.IPatient ChargerPatients(int id)
+            {
+                ModelesPatients.IPatient patient = null;
+                var enregistrement = Program.Bd.GetRow(@"SELECT 
+                        patients.ID_Patients AS id, 
+                        patients.Nom AS nom, 
+                        patients.Prenom AS prenom, 
+                        patients.Civilite AS civilite, 
+                        patients.Date_de_naissance AS date_Naissance, 
+                        patients.Adresse AS adresse, 
+                        patients.Patient_ID_Localite AS id_Localite,
+                        localites.Code_postal AS code_postal, 
+                        localites.Localite AS localite, 
+                        patients.Email AS email, 
+                        patients.Telephone AS telephone, 
+                        patients.Dossier AS dossier, 
+                        patients.Vipo AS vipo, 
+                        patients.Patients_ID_Mutualite AS id_Mutualite,
+                        mutualites.Mutualite AS mutuelle, 
+                        patients.Photo AS photo,
+                        patients.Commentaire AS commentaire,
+                        patients.NumeroAffiliation AS numeroAffiliation
+                    FROM patients WHERE patients.ID_Patients = {0}", id + 1);
+
+                Image ImgDB = Extensions.GetImageDirectoryPC(enregistrement.GetValue<string>("photo"), "images/mutuelles/default.png");
+                patient = ModelesPatients.CreerPatient
+                                                            (enregistrement.GetValue<int>("id"),
+                                                             enregistrement.GetValue<string>("nom"),
+                                                             enregistrement.GetValue<string>("prenom"),
+                                                             enregistrement.GetValue<string>("civilite"),
+                                                             enregistrement.GetValue<DateTime>("date_naissance"),
+                                                             enregistrement.GetValue<string>("adresse"),
+                                                             enregistrement.GetValue<int>("id_Localite"),
+                                                             enregistrement.GetValue<bool>("vipo"),
+                                                             enregistrement.GetValue<string>("email"),
+                                                             enregistrement.GetValue<string>("telephone"),
+                                                             enregistrement.GetValue<string>("dossier"),
+                                                             enregistrement.GetValue<string>("commentaire"),
+                                                             enregistrement.GetValue<string>("numeroAffiliation"),
+                                                             enregistrement.GetValue<int>("id_Mutualite"),
+                                                             ImgDB
+                                                            );
+                return patient;
+            }
+
+            
 
             /// <summary>
             /// Permet de retourner une nouvelle entité de type IPatient
@@ -237,7 +284,7 @@ namespace KineGestionApp
                 {
                     if(Program.Bd.Execute(@"UPDATE patients SET patients.Nom = {0}, patients.Prenom = {1}, patients.Civilite = {2}, patients.Date_de_naissance = {3}, 
                                         patients.Adresse = {4}, patients.Patient_ID_Localite = {5}, patients.Email = {6}, patients.Telephone = {7}, 
-                                        Patients.Vipo = {8}, patients.Commentaire = {9}, patients.Patients_ID_Mutualite = {10}, patients.Photo = {11}, WHERE patients.ID_Patients = {12}",
+                                        Patients.Vipo = {8}, patients.Commentaire = {9}, patients.Patients_ID_Mutualite = {10}, patients.Photo = {11} WHERE patients.ID_Patients = {12}",
                                         patient.NomPatient, patient.PrenomPatient, patient.CivilitePatient, patient.DateNaissancePatient, patient.AdressePatient, patient.Patient_ID_Localite, patient.EmailPatient,
                                         patient.TelephonePatient, patient.VipoPatient, patient.CommentairePatient, patient.Patients_ID_Mutualite, imgPath, patient.Id).RowCount == 1) return true;
                 }

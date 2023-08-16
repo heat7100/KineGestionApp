@@ -473,6 +473,7 @@
             this.listBoxPatientAjouterPrescriptions.Name = "listBoxPatientAjouterPrescriptions";
             this.listBoxPatientAjouterPrescriptions.Size = new System.Drawing.Size(282, 261);
             this.listBoxPatientAjouterPrescriptions.TabIndex = 0;
+            this.listBoxPatientAjouterPrescriptions.SelectedIndexChanged += new System.EventHandler(this.listBoxPatientAjouterPrescriptions_SelectedIndexChanged);
             // 
             // textBoxAdressePatientAjouterPrescriptions
             // 
@@ -608,6 +609,7 @@
             this.listBoxMedecinsAjouterPrescriptions.Name = "listBoxMedecinsAjouterPrescriptions";
             this.listBoxMedecinsAjouterPrescriptions.Size = new System.Drawing.Size(282, 235);
             this.listBoxMedecinsAjouterPrescriptions.TabIndex = 0;
+            this.listBoxMedecinsAjouterPrescriptions.SelectedIndexChanged += new System.EventHandler(this.listBoxMedecinsAjouterPrescriptions_SelectedIndexChanged);
             // 
             // labelAdresseMedecinAjouterPrescriptions
             // 

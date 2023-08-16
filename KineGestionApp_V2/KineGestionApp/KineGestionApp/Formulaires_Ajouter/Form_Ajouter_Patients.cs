@@ -296,7 +296,7 @@ namespace KineGestionApp
 
         private void textDossierAjouterPatients_Validating(object sender, CancelEventArgs e)
         {
-            if(textDossierAjouterPatients.Text == "")
+            if (textDossierAjouterPatients.Text == "")
             {
                 errorProviderAjouterPatients.SetError(textDossierAjouterPatients, null);
             }
@@ -311,6 +311,7 @@ namespace KineGestionApp
                 errorProviderAjouterPatients.SetError(textDossierAjouterPatients, null);
             }
         }
+
 
         private void checkBoxVipoAjouterPatient_CheckedChanged(object sender, EventArgs e)
         {

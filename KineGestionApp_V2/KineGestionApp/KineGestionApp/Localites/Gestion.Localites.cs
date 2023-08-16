@@ -121,9 +121,24 @@ namespace KineGestionApp
             /// </summary>
             /// <param name="id">Identifiant de la mutuelle</param>
             /// <returns>Quizz chargé si possible, sinon null</returns>
-            public ModelesLocalites.ILocalite ChargerLocalites(int id)
+            public ModelesLocalites.ILocalite ChargerLocalitesEnCache(int id)
             {
                 return enDB.TryGetValue(id, out var localite) ? localite : null;
+            }
+
+            /// <summary>
+            /// Permet de charger une localité selon l'identifiant spécifié
+            /// </summary>
+            /// <param name="id">Identifiant de la mutuelle</param>
+            /// <returns>Quizz chargé si possible, sinon null</returns>
+            public ModelesLocalites.ILocalite ChargerLocalites(int id)
+            {
+                //Pour le moment, il est question de récupérer le logo pour pictureBox dans les formulaires
+                ModelesLocalites.ILocalite localite = null;
+                var enregistrement = Program.Bd.GetRow(@"SELECT localites.ID_Localite AS id, localites.Code_postal AS code_postal, localites.Localite AS localite
+                                                         FROM localites WHERE localites.ID_Localite = {0}", id + 1);
+                localite = ModelesLocalites.CreerLocalite(enregistrement.GetValue<int>("id"), enregistrement.GetValue<string>("localite"), enregistrement.GetValue<string>("code_postal"));
+                return localite;
             }
 
             /// <summary>

@@ -125,17 +125,16 @@ namespace KineGestionApp
                          enregistrement.GetValue<int>("id_Localite")
                         );
                     if (medecin == null) continue;
-                    if (medecinActuel == null)
+                    if (enregistrement.GetValue("id") != null)
                     {
-                        if (enregistrement.GetValue("id_Mutualite") != null)
-                        {
-                            medecinActuel = medecin;
-                        }
+                        medecinActuel = medecin;
+                        yield return medecinActuel;
                     }
+
                     else if (!medecin.Id.Equals(medecinActuel.Id))
                     {
-                        yield return medecinActuel;
                         medecinActuel = medecin;
+                        yield return medecinActuel; 
                     }
                     else
                     {

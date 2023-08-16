@@ -13,6 +13,8 @@ namespace KineGestionApp
 {
     public partial class Form_Ajouter_Prescriptions : Form
     {
+        private IEnumerable<ModelesPatients.IPatient> listPatients = Program.Patient.EnumererPatients();
+
         public Form_Ajouter_Prescriptions()
         {
             InitializeComponent();
@@ -20,11 +22,21 @@ namespace KineGestionApp
             #region Gestion de la récupération des patients
 
             listBoxPatientAjouterPrescriptions.Items.Clear();
-            foreach (var patient in Program.Patient
-                .EnumererPatients()
-                .Select(patient => new FormattedObject<ModelesPatients.IPatient>(patient, p => p.NomPatient)))
+            foreach (var patient in listPatients
+                .Select(patient => new FormattedObject<ModelesPatients.IPatient>(patient, p => p.NomPatient + " " + p.PrenomPatient)))
             {
-                comboBoxNomenclaturesAjouterPrescriptions.Items.Add(patient);
+                listBoxPatientAjouterPrescriptions.Items.Add(patient);
+            }
+            #endregion
+
+            #region Gestion de la récupération des médecins
+
+            listBoxMedecinsAjouterPrescriptions.Items.Clear();
+            foreach (var medecin in Program.Medecin
+                .EnumererMedecins()
+                .Select(medecin => new FormattedObject<ModelesMedecins.IMedecin>(medecin, m => m.NomMedecin + " " + m.PrenomMedecin)))
+            {
+                listBoxMedecinsAjouterPrescriptions.Items.Add(medecin);
             }
             #endregion
 
@@ -95,6 +107,30 @@ namespace KineGestionApp
                     Extensions.ClearFormControls(this);
                 }
             }
+        }
+
+        private void listBoxPatientAjouterPrescriptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ModelesPatients.IPatient SelectedPatient = Program.Patient.ChargerPatients(listBoxPatientAjouterPrescriptions.SelectedIndex);
+            ModelesLocalites.ILocalite LocPatient = Program.Localite.ChargerLocalites(SelectedPatient.Patient_ID_Localite);
+            ModelesMutuelles.IMutuelle MutPatient = Program.Mutuelle.ChargerMutuelles(SelectedPatient.Patients_ID_Mutualite);
+
+            textBoxAdressePatientAjouterPrescriptions.Text = SelectedPatient.AdressePatient;
+            textBoxCodePostalAjouterPrescriptions.Text = LocPatient.CodePostal;
+            textBoxLocalitePatientAjouterPrescriptions.Text = LocPatient.NomLocalite;
+            checkBoxVipoAjouterPrescriptions.Checked = SelectedPatient.VipoPatient;
+            pictureBoxPhotoPatientAjouterPrescriptions.Image = SelectedPatient.PhotoPatient;
+            pictureBoxLogoMutuelleAjouterPrescriptions.Image = MutPatient.LogoMutuelle;
+        }
+
+        private void listBoxMedecinsAjouterPrescriptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ModelesMedecins.IMedecin SelectedMedecin = Program.Medecin.ChargerMedecins(listBoxMedecinsAjouterPrescriptions.SelectedIndex);
+            ModelesLocalites.ILocalite LocMedecin = Program.Localite.ChargerLocalites(SelectedMedecin.Medecin_ID_Localite);
+
+            textBoxAdresseMedecinAjouterPrescriptions.Text = SelectedMedecin.AdresseMedecin;
+            textBoxCodePostalMedecinAjouterPrescriptions.Text = LocMedecin.CodePostal;
+            textBoxLocaliteMedecinAjouterPrescriptions.Text = LocMedecin.NomLocalite;
         }
     }
 }
