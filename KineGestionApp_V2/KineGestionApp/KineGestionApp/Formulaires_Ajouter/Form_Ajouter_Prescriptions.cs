@@ -14,6 +14,7 @@ namespace KineGestionApp
     public partial class Form_Ajouter_Prescriptions : Form
     {
         private IEnumerable<ModelesPatients.IPatient> listPatients = Program.Patient.EnumererPatients();
+        private IEnumerable<ModelesMedecins.IMedecin> listMedecins = Program.Medecin.EnumererMedecins();
 
         public Form_Ajouter_Prescriptions()
         {
@@ -111,7 +112,8 @@ namespace KineGestionApp
 
         private void listBoxPatientAjouterPrescriptions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ModelesPatients.IPatient SelectedPatient = Program.Patient.ChargerPatients(listBoxPatientAjouterPrescriptions.SelectedIndex);
+            int selectedPatientID = Program.idItemFromEnumerablePatients(listPatients, listBoxPatientAjouterPrescriptions.SelectedIndex);
+            ModelesPatients.IPatient SelectedPatient = Program.Patient.ChargerPatients(selectedPatientID);
             ModelesLocalites.ILocalite LocPatient = Program.Localite.ChargerLocalites(SelectedPatient.Patient_ID_Localite);
             ModelesMutuelles.IMutuelle MutPatient = Program.Mutuelle.ChargerMutuelles(SelectedPatient.Patients_ID_Mutualite);
 
@@ -119,13 +121,15 @@ namespace KineGestionApp
             textBoxCodePostalAjouterPrescriptions.Text = LocPatient.CodePostal;
             textBoxLocalitePatientAjouterPrescriptions.Text = LocPatient.NomLocalite;
             checkBoxVipoAjouterPrescriptions.Checked = SelectedPatient.VipoPatient;
+
             pictureBoxPhotoPatientAjouterPrescriptions.Image = SelectedPatient.PhotoPatient;
             pictureBoxLogoMutuelleAjouterPrescriptions.Image = MutPatient.LogoMutuelle;
         }
 
         private void listBoxMedecinsAjouterPrescriptions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ModelesMedecins.IMedecin SelectedMedecin = Program.Medecin.ChargerMedecins(listBoxMedecinsAjouterPrescriptions.SelectedIndex);
+            int selectedMedecinID = Program.idItemFromEnumerableMedecins(listMedecins, listBoxMedecinsAjouterPrescriptions.SelectedIndex);
+            ModelesMedecins.IMedecin SelectedMedecin = Program.Medecin.ChargerMedecins(selectedMedecinID);
             ModelesLocalites.ILocalite LocMedecin = Program.Localite.ChargerLocalites(SelectedMedecin.Medecin_ID_Localite);
 
             textBoxAdresseMedecinAjouterPrescriptions.Text = SelectedMedecin.AdresseMedecin;

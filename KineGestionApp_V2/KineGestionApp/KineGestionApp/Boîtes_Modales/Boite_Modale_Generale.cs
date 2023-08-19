@@ -106,6 +106,7 @@ namespace KineGestionApp
         private void boutonQuitterModalGeneral_Click(object sender, EventArgs e)
         {
             TimerBoiteModaleGenerale();
+            Application.Exit();
         }
 
         public void TimerBoiteModaleGenerale()

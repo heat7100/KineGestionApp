@@ -136,7 +136,7 @@ namespace KineGestionApp
                 //Pour le moment, il est question de récupérer le logo pour pictureBox dans les formulaires
                 ModelesLocalites.ILocalite localite = null;
                 var enregistrement = Program.Bd.GetRow(@"SELECT localites.ID_Localite AS id, localites.Code_postal AS code_postal, localites.Localite AS localite
-                                                         FROM localites WHERE localites.ID_Localite = {0}", id + 1);
+                                                         FROM localites WHERE localites.ID_Localite = {0}", id);
                 localite = ModelesLocalites.CreerLocalite(enregistrement.GetValue<int>("id"), enregistrement.GetValue<string>("localite"), enregistrement.GetValue<string>("code_postal"));
                 return localite;
             }

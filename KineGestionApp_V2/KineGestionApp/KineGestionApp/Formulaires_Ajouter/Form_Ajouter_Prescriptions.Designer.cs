@@ -478,6 +478,7 @@
             // textBoxAdressePatientAjouterPrescriptions
             // 
             this.textBoxAdressePatientAjouterPrescriptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxAdressePatientAjouterPrescriptions.Enabled = false;
             this.textBoxAdressePatientAjouterPrescriptions.Location = new System.Drawing.Point(99, 270);
             this.textBoxAdressePatientAjouterPrescriptions.Name = "textBoxAdressePatientAjouterPrescriptions";
             this.textBoxAdressePatientAjouterPrescriptions.Size = new System.Drawing.Size(282, 22);
@@ -486,6 +487,7 @@
             // textBoxCodePostalAjouterPrescriptions
             // 
             this.textBoxCodePostalAjouterPrescriptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxCodePostalAjouterPrescriptions.Enabled = false;
             this.textBoxCodePostalAjouterPrescriptions.Location = new System.Drawing.Point(99, 301);
             this.textBoxCodePostalAjouterPrescriptions.Name = "textBoxCodePostalAjouterPrescriptions";
             this.textBoxCodePostalAjouterPrescriptions.Size = new System.Drawing.Size(282, 22);
@@ -494,6 +496,7 @@
             // textBoxLocalitePatientAjouterPrescriptions
             // 
             this.textBoxLocalitePatientAjouterPrescriptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxLocalitePatientAjouterPrescriptions.Enabled = false;
             this.textBoxLocalitePatientAjouterPrescriptions.Location = new System.Drawing.Point(99, 336);
             this.textBoxLocalitePatientAjouterPrescriptions.Name = "textBoxLocalitePatientAjouterPrescriptions";
             this.textBoxLocalitePatientAjouterPrescriptions.Size = new System.Drawing.Size(282, 22);
@@ -502,6 +505,7 @@
             // checkBoxVipoAjouterPrescriptions
             // 
             this.checkBoxVipoAjouterPrescriptions.AutoSize = true;
+            this.checkBoxVipoAjouterPrescriptions.Enabled = false;
             this.checkBoxVipoAjouterPrescriptions.Location = new System.Drawing.Point(99, 368);
             this.checkBoxVipoAjouterPrescriptions.Name = "checkBoxVipoAjouterPrescriptions";
             this.checkBoxVipoAjouterPrescriptions.Size = new System.Drawing.Size(60, 20);

@@ -149,7 +149,7 @@ namespace KineGestionApp
                 ModelesMutuelles.IMutuelle mutuelle = null;
                 var enregistrement = Program.Bd.GetRow(@"SELECT mutualites.ID_Mutualite AS id, mutualites.Mutualite AS mutuelle, 
                                                                     mutualites.Adresse AS adresse, mutualites.Mutualite_ID_Localite AS mutualite_ID_Localite, 
-                                                                    mutualites.Email AS email, mutualites.Telephone AS telephone, mutualites.Logo AS logo FROM mutualites WHERE mutualites.ID_Mutualite = {0}", id + 1);
+                                                                    mutualites.Email AS email, mutualites.Telephone AS telephone, mutualites.Logo AS logo FROM mutualites WHERE mutualites.ID_Mutualite = {0}", id);
 
                 Image ImgDB = Extensions.GetImageDirectoryPC(enregistrement.GetValue<string>("logo"), "images/mutuelles/default.png");
                 mutuelle = ModelesMutuelles.CreerMutuelle(enregistrement.GetValue<int>("id"), enregistrement.GetValue<string>("mutuelle"), enregistrement.GetValue<string>("adresse"), enregistrement.GetValue<string>("email"), enregistrement.GetValue<string>("telephone"), enregistrement.GetValue<int>("mutualite_ID_Localite"), ImgDB);

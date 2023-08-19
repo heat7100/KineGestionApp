@@ -97,6 +97,7 @@ namespace KineGestionApp
         /// <param name="idToFind">ID à récupréer</param>
         /// <returns></returns>
         public static int positionItemFromEnumerable(IEnumerable<ModelesLocalites.ILocalite> source, int idToFind)
+            //where T : ModelesMutuelles.IMutuelle, ModelesPatients.IPatient, ModelesLocalites.ILocalite, ModelesMedecins.IMedecin
         {
             int i = 0; //positon de l'index de la comboBox
             foreach (var @object in source)
@@ -106,6 +107,42 @@ namespace KineGestionApp
             }
             return -1; //Not found
         }
+
+        /// <summary>
+        /// Permet de récupérer l'ID d'un patient sur base d'une position dans un control
+        /// </summary>
+        /// <param name="source">Liste des objets localités</param>
+        /// <param name="posToFind">ID à récupréer</param>
+        /// <returns></returns>
+        public static int idItemFromEnumerablePatients(IEnumerable<ModelesPatients.IPatient> source, int posToFind)
+        {
+            int i = 0; //positon de l'index de la comboBox
+            foreach (var @object in source)
+            {
+                if (i == posToFind) return @object.Id;
+                i++;
+            }
+            return -1; //Not found
+        }
+
+        /// <summary>
+        /// Permet de récupérer l'ID d'un médecin sur base d'une position dans un control
+        /// </summary>
+        /// <param name="source">Liste des objets localités</param>
+        /// <param name="posToFind">ID à récupréer</param>
+        /// <returns></returns>
+        public static int idItemFromEnumerableMedecins(IEnumerable<ModelesMedecins.IMedecin> source, int posToFind)
+        {
+            int i = 0; //positon de l'index de la comboBox
+            foreach (var @object in source)
+            {
+                if (i == posToFind) return @object.Id;
+                i++;
+            }
+            return -1; //Not found
+        }
+
+
 
         /// <summary>
         /// Permet de récupérer la position de l'ID de la mutuelle dans les comboBox des localités et des codes postaux
@@ -131,6 +168,21 @@ namespace KineGestionApp
         /// <param name="idToFind"></param>
         /// <returns></returns>
         public static ModelesLocalites.ILocalite ItemFromEnumerable(IEnumerable<ModelesLocalites.ILocalite> source, int idToFind)
+        {
+            foreach (var @object in source)
+            {
+                if (@object.Id == idToFind) return @object;
+            }
+            return null; //Not found
+        }
+
+        /// <summary>
+        /// Permet de récupérer la position de l'ID de la mutuelle dans les comboBox des localités et des codes postaux
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="idToFind"></param>
+        /// <returns></returns>
+        public static ModelesMutuelles.IMutuelle ItemMutFromEnumerable(IEnumerable<ModelesMutuelles.IMutuelle> source, int idToFind)
         {
             foreach (var @object in source)
             {

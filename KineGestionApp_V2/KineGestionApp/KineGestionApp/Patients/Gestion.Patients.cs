@@ -194,37 +194,49 @@ namespace KineGestionApp
                         patients.Date_de_naissance AS date_Naissance, 
                         patients.Adresse AS adresse, 
                         patients.Patient_ID_Localite AS id_Localite,
-                        localites.Code_postal AS code_postal, 
-                        localites.Localite AS localite, 
                         patients.Email AS email, 
                         patients.Telephone AS telephone, 
                         patients.Dossier AS dossier, 
                         patients.Vipo AS vipo, 
                         patients.Patients_ID_Mutualite AS id_Mutualite,
-                        mutualites.Mutualite AS mutuelle, 
                         patients.Photo AS photo,
                         patients.Commentaire AS commentaire,
                         patients.NumeroAffiliation AS numeroAffiliation
-                    FROM patients WHERE patients.ID_Patients = {0}", id + 1);
+                        FROM patients WHERE patients.ID_Patients = {0}", id);
 
                 Image ImgDB = Extensions.GetImageDirectoryPC(enregistrement.GetValue<string>("photo"), "images/mutuelles/default.png");
+                int idPatient = enregistrement.GetValue<int>("id");
+                string nomPatient = enregistrement.GetValue<string>("nom");
+                string prenomPatient = enregistrement.GetValue<string>("prenom");
+                string civilitePatient = enregistrement.GetValue<string>("civilite");
+                DateTime dateDeNaissancePatient = enregistrement.GetValue<DateTime>("date_naissance");
+                string adressePatient = enregistrement.GetValue<string>("adresse");
+                int id_Localite = enregistrement.GetValue<int>("id_Localite");
+                bool vipo = enregistrement.GetValue<bool>("vipo");
+                string emailPatient = enregistrement.GetValue<string>("email");
+                string telephonePatient = enregistrement.GetValue<string>("telephone");
+                string dossierPatient = enregistrement.GetValue<string>("dossier");
+                string commentairePatient = enregistrement.GetValue<string>("commentaire");
+                string numeroAffiliation = enregistrement.GetValue<string>("numeroAffiliation");
+                int id_Mutualite = enregistrement.GetValue<int>("id_Mutualite");
                 patient = ModelesPatients.CreerPatient
-                                                            (enregistrement.GetValue<int>("id"),
-                                                             enregistrement.GetValue<string>("nom"),
-                                                             enregistrement.GetValue<string>("prenom"),
-                                                             enregistrement.GetValue<string>("civilite"),
-                                                             enregistrement.GetValue<DateTime>("date_naissance"),
-                                                             enregistrement.GetValue<string>("adresse"),
-                                                             enregistrement.GetValue<int>("id_Localite"),
-                                                             enregistrement.GetValue<bool>("vipo"),
-                                                             enregistrement.GetValue<string>("email"),
-                                                             enregistrement.GetValue<string>("telephone"),
-                                                             enregistrement.GetValue<string>("dossier"),
-                                                             enregistrement.GetValue<string>("commentaire"),
-                                                             enregistrement.GetValue<string>("numeroAffiliation"),
-                                                             enregistrement.GetValue<int>("id_Mutualite"),
-                                                             ImgDB
-                                                            );
+                                                    (
+                                                        idPatient,
+                                                        nomPatient,
+                                                        prenomPatient,
+                                                        civilitePatient,
+                                                        dateDeNaissancePatient,
+                                                        adressePatient,
+                                                        id_Localite,
+                                                        vipo,
+                                                        emailPatient,
+                                                        telephonePatient,
+                                                        dossierPatient,
+                                                        commentairePatient,
+                                                        numeroAffiliation,
+                                                        id_Mutualite,
+                                                        ImgDB
+                                                    );
                 return patient;
             }
 

@@ -404,6 +404,7 @@ namespace KineGestionApp
         private void comboBoxCodePostalModifierMutuelles_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxLocaliteModifierMutuelles.SelectedIndex = comboBoxCodePostalModifierMutuelles.SelectedIndex;
+            Mutuelle.ModifierLocaliteMutuelle((comboBoxLocaliteModifierMutuelles.SelectedItem as FormattedObject<ModelesLocalites.ILocalite>).Object.Id);
         }
 
         private void comboBoxLocaliteModifierMutuelles_SelectedIndexChanged(object sender, EventArgs e)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PDSGBD;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace KineGestionApp
 {
@@ -101,8 +102,6 @@ namespace KineGestionApp
                             medecins.Civilite AS civilite,
                             medecins.Numero_INAMI AS numeroINAMI,
                             medecins.Adresse AS adresse,
-                            localites.Localite AS localite,
-                            localites.Code_postal AS code_postal,
                             medecins.Email AS email,
                             medecins.Medecin_ID_Localite AS id_Localite,
                             medecins.Telephone AS telephone
@@ -147,14 +146,29 @@ namespace KineGestionApp
             }
 
             /// <summary>
-            /// Permet de charger un médecin selon l'identifiant spécifié
+            /// Permet de charger un médecin selon l'identifiant spécifié en mémoire cache
+            /// </summary>
+            /// <param name="id">Identifiant du quizz</param>
+            /// <returns>Médecin chargé si possible, sinon null</returns>
+            public ModelesMedecins.IMedecin ChargerMedecinsEnCache(int id)
+            {
+                return enDB.TryGetValue(id, out var medecin) ? medecin : null;
+            }
+
+            /// <summary>
+            /// Permet de charger un médecin selon l'identifiant spécifié en DB
             /// </summary>
             /// <param name="id">Identifiant du quizz</param>
             /// <returns>Médecin chargé si possible, sinon null</returns>
             public ModelesMedecins.IMedecin ChargerMedecins(int id)
             {
-                return enDB.TryGetValue(id, out var medecin) ? medecin : null;
+                ModelesMedecins.IMedecin medecin = null;
+                var enregistrement = Program.Bd.GetRow(@"SELECT medecins.ID_Medecin AS id, medecins.Nom AS nom, medecins.Prenom, medecins.Civilite AS civilite, medecins.Adresse AS adresse, medecins.Numero_INAMI AS numeroINAMI, medecins.Email AS email, medecins.Telephone AS telephone, medecins.Medecin_ID_Localite AS id_Localite
+                                                         FROM medecins WHERE medecins.ID_Medecin = {0}", id);
+                medecin = ModelesMedecins.CreerMedecin(enregistrement.GetValue<int>("id"), enregistrement.GetValue<string>("nom"), enregistrement.GetValue<string>("prenom"), enregistrement.GetValue<string>("civilite"), enregistrement.GetValue<string>("adresse"), enregistrement.GetValue<string>("numeroINAMI"), enregistrement.GetValue<string>("email"), enregistrement.GetValue<string>("telephone"), enregistrement.GetValue<int>("id_Localite"));
+                return medecin;
             }
+
 
             /// <summary>
             /// Permet de retourner une nouvelle entité de type IMedecin

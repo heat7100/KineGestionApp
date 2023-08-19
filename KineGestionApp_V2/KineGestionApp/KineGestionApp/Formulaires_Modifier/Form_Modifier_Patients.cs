@@ -78,15 +78,15 @@ namespace KineGestionApp
                             {
                                 pictureBoxPhotoPatientModifierPatients.Load(openFileDialog1.FileName);
                                 if (!Patient.ModifierPhotoPatient(pictureBoxPhotoPatientModifierPatients.Image))
-                                {
-                                    pictureBoxPhotoPatientModifierPatients.Invalidate();
-                                    errorProviderModifierPatients.SetError(boutonModifierPhotoPatientModifierPatients, "Format image invalide\n" +
-                                                                                                             "Formats autorisés : png, jpeg");
-                                }
-                                else
-                                {
-                                    errorProviderModifierPatients.SetError(boutonModifierPhotoPatientModifierPatients, null);
-                                }
+                                    {
+                                        pictureBoxPhotoPatientModifierPatients.Invalidate();
+                                        errorProviderModifierPatients.SetError(boutonModifierPhotoPatientModifierPatients, "Format image invalide\n" +
+                                                                                                                 "Formats autorisés : png, jpeg");
+                                    }
+                                    else
+                                    {
+                                        errorProviderModifierPatients.SetError(boutonModifierPhotoPatientModifierPatients, null);
+                                    }
                             }
                         }
                         catch (Exception error)
@@ -185,6 +185,13 @@ namespace KineGestionApp
             if (Patient.EmailPatient != PatientConfirmation.EmailPatient)
             {
                 message.Append("Email : " + PatientConfirmation.EmailPatient + " => " + Patient.EmailPatient + "\n");
+            }
+            if(Patient.Patients_ID_Mutualite != Patient.Patients_ID_Mutualite)
+            {
+                string BeforeMut = Program.ItemMutFromEnumerable(listMutuelles, PatientConfirmation.Patients_ID_Mutualite).NomMutuelle;
+                string AfterMut = Program.ItemMutFromEnumerable(listMutuelles, Patient.Patients_ID_Mutualite).NomMutuelle;
+
+                message.Append("Mutuelle : " + BeforeMut + " => " + AfterMut + "\n");
             }
             if (Patient.Patient_ID_Localite != PatientConfirmation.Patient_ID_Localite)
             {
@@ -287,7 +294,7 @@ namespace KineGestionApp
                     comboBoxCodePostalModifierPatients.SelectedIndex = posLocalite;
                     comboBoxLocaliteModifierPatients.SelectedIndex = posLocalite;
                     textEmailModifierPatients.Text = Patient.EmailPatient;
-                    textTelephoneModifierPatients.Text =Patient.TelephonePatient;
+                    textTelephoneModifierPatients.Text = Patient.TelephonePatient;
                     textDossierModifierPatients.Text = Patient.DossierPatient;
                     checkBoxVipoModifierPatients.Checked = Patient.VipoPatient;
                     listBoxMutuellesModifierPatients.SelectedIndex = posMutuelle;
@@ -524,21 +531,22 @@ namespace KineGestionApp
         private void comboBoxCodePostalModifierPatients_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxLocaliteModifierPatients.SelectedIndex = comboBoxCodePostalModifierPatients.SelectedIndex;
+            Patient.ModifierLocalitePatient((comboBoxLocaliteModifierPatients.SelectedItem as FormattedObject<ModelesLocalites.ILocalite>).Object.Id);
         }
 
         private void comboBoxLocaliteModifierPatients_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBoxCodePostalModifierPatients.SelectedIndex = comboBoxLocaliteModifierPatients.SelectedIndex;
-            Patient.ModifierLocalitePatient((comboBoxLocaliteModifierPatients.SelectedItem as FormattedObject<ModelesLocalites.ILocalite>).Object.Id);
         }
 
         private void listBoxMutuellesModifierPatients_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Mutuelle = Program.Mutuelle.ChargerMutuelles(listBoxMutuellesModifierPatients.SelectedIndex);
+            int posMutuelle = Program.positionMutFromEnumerable(listMutuelles, (listBoxMutuellesModifierPatients.SelectedItem as FormattedObject<ModelesMutuelles.IMutuelle>).Object.Id);
+            listBoxMutuellesModifierPatients.SelectedIndex = posMutuelle;
+            Mutuelle = Program.Mutuelle.ChargerMutuelles(((listBoxMutuellesModifierPatients.SelectedItem as FormattedObject<ModelesMutuelles.IMutuelle>).Object.Id));
             Extensions.ResizeImageAccordingToPictureBox(Mutuelle.LogoMutuelle, pictureBoxLogoMutuelleModifierPatients);
             pictureBoxLogoMutuelleModifierPatients.Image = Mutuelle.LogoMutuelle;
             pictureBoxLogoMutuelleModifierPatients.SizeMode = PictureBoxSizeMode.Zoom;
-            //Patient.ModifierMutuellePatient(listBoxMutuellesAjouterPatients.SelectedIndex + 1);
             Patient.ModifierMutuellePatient((listBoxMutuellesModifierPatients.SelectedItem as FormattedObject<ModelesMutuelles.IMutuelle>).Object.Id);
         }
 

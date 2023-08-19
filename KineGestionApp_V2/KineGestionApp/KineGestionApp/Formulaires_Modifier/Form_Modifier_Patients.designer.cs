@@ -538,7 +538,6 @@
             this.comboBoxCodePostalModifierPatients.MaxDropDownItems = 20;
             this.comboBoxCodePostalModifierPatients.Name = "comboBoxCodePostalModifierPatients";
             this.comboBoxCodePostalModifierPatients.Size = new System.Drawing.Size(265, 24);
-            this.comboBoxCodePostalModifierPatients.Sorted = true;
             this.comboBoxCodePostalModifierPatients.TabIndex = 5;
             this.comboBoxCodePostalModifierPatients.SelectedIndexChanged += new System.EventHandler(this.comboBoxCodePostalModifierPatients_SelectedIndexChanged);
             // 
@@ -552,7 +551,6 @@
             this.comboBoxLocaliteModifierPatients.MaxDropDownItems = 20;
             this.comboBoxLocaliteModifierPatients.Name = "comboBoxLocaliteModifierPatients";
             this.comboBoxLocaliteModifierPatients.Size = new System.Drawing.Size(265, 24);
-            this.comboBoxLocaliteModifierPatients.Sorted = true;
             this.comboBoxLocaliteModifierPatients.TabIndex = 6;
             this.comboBoxLocaliteModifierPatients.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocaliteModifierPatients_SelectedIndexChanged);
             // 
@@ -668,7 +666,6 @@
             this.listBoxMutuellesModifierPatients.Location = new System.Drawing.Point(3, 204);
             this.listBoxMutuellesModifierPatients.Name = "listBoxMutuellesModifierPatients";
             this.listBoxMutuellesModifierPatients.Size = new System.Drawing.Size(299, 376);
-            this.listBoxMutuellesModifierPatients.Sorted = true;
             this.listBoxMutuellesModifierPatients.TabIndex = 0;
             this.listBoxMutuellesModifierPatients.SelectedIndexChanged += new System.EventHandler(this.listBoxMutuellesModifierPatients_SelectedIndexChanged);
             // 
